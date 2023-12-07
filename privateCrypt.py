@@ -30,7 +30,6 @@ def encrypt_aes_ecb(plain_str, key):
     ciphertext = cipher.encrypt(pad(plain_str.encode(), AES.block_size))
     return base64.b64encode(ciphertext).decode()
 
-'''
 def decrypt_aes_ecb(ciphertext, key):
     """
     无偏移的AES解密
@@ -42,22 +41,6 @@ def decrypt_aes_ecb(ciphertext, key):
     cipher = AES.new(key, AES.MODE_ECB)
     plain_str = unpad(cipher.decrypt(ciphertext), AES.block_size)
     return plain_str.decode()
-'''    
-def decrypt_aes_ecb(ciphertext, key):
-    """
-    无偏移的AES解密
-    :param ciphertext: 需要解密的密文
-    :param key: AES私钥
-    :return: 解密后的明文
-    """
-    # 填充Base64密文
-    ciphertext += b'=' * (4 - len(ciphertext) % 4)
-    
-    ciphertext = base64.b64decode(ciphertext)
-    cipher = AES.new(key, AES.MODE_ECB)
-    plain_str = unpad(cipher.decrypt(ciphertext), AES.block_size)
-    return plain_str.decode()
-
 
 '''
 def encrypt_aes_cbc(plain_str, key):
