@@ -29,15 +29,26 @@ class Encrypt:
         # 重新编码
         result = str(base64.b64encode(encrypt_bytes), encoding='utf-8')
         return result
-
+'''
     def aes_decrypt(self, content):
         """AES解密 """
         cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
         content = base64.b64decode(content)
         text = cipher.decrypt(content).decode('utf-8')
         return text.rstrip(self.coding)
-
-
+'''
+    def aes_decrypt(self, content):
+    """AES解密 """
+    cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+    
+    # 确保Base64字符串长度为4的倍数，补齐等号
+    pad_length = len(content) % 4
+    if pad_length != 0:
+        content += '=' * (4 - pad_length)
+    
+    content = base64.b64decode(content)
+    text = cipher.decrypt(content).decode('utf-8')
+    return text.rstrip(self.coding)
 # if __name__ == '__main__':
 #     key = 'ONxYDyNaCoyTzsp83JoQ3YYuMPHxk3j7'
 #     iv = 'yNaCoyTzsp83JoQ3'
